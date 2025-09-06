@@ -15,7 +15,7 @@ const resources = {
   hi: {
     translation: {
       home: "होम",
-      about: "के बारे में",
+      about: "बारे में",
       services: "सेवाएं",
       contact: "संपर्क करें",
       login: "लॉग इन",
