@@ -3,8 +3,10 @@ import CurrentLocation from "./CurrentLocation";
 import { useTranslation } from "react-i18next";
 import { FaGlobe } from "react-icons/fa";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const { t, i18n } = useTranslation();
   const [showLang, setShowLang] = useState(false);
 
@@ -133,10 +135,12 @@ const Navbar = () => {
       </div>
 
       <div className="flex gap-4">
-        <button className="px-6 py-1 bg-indigo-300 text-blue-900 font-medium rounded-full shadow-md hover:bg-indigo-700 hover:text-white transition duration-300">
+        <button className="px-6 py-1 bg-indigo-300 text-blue-900 font-medium rounded-full shadow-md hover:bg-indigo-700 hover:text-white transition duration-300"
+           onClick={() => navigate("/login")}>
           {t("login")}
         </button>
-        <button className="px-6 py-1 bg-indigo-300 text-blue-900 font-medium rounded-full shadow-md hover:bg-indigo-700 hover:text-white transition duration-300">
+        <button className="px-6 py-1 bg-indigo-300 text-blue-900 font-medium rounded-full shadow-md hover:bg-indigo-700 hover:text-white transition duration-300"
+           onClick={() => navigate("/signup")}>
           {t("signup")}
         </button>
       </div>
