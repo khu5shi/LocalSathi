@@ -1,5 +1,7 @@
-import { initializeApp } from "firebase/app";
-import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
+
+import { initializeApp } from "../../backend/config/firebase";
+import {getAuth, RecaptchaVerifier,signInWithPhoneNumber} from "firebase/auth";
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyBpVDBKw39ftpikAuuQVQGkHzlqgPHxNlw",
@@ -15,9 +17,11 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 
 
+
 export const setUpRecaptcha = (phoneNumber) => {
   const recaptcha = new RecaptchaVerifier(auth, "recaptcha-container", {
     size: "invisible",
   });
   return signInWithPhoneNumber(auth, phoneNumber, recaptcha);
+
 };
