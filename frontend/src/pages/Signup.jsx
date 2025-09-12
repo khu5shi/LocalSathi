@@ -237,7 +237,7 @@ export default function Signup() {
   };
 
   return (
-    <div className="flex items-center  my-15">
+    <div className="flex items-center bg-orange-50 my-5 mx-4 h-[600px]">
         <img src="" alt="" />
       <div className="bg-indigo-800 text-white p-8 mx-35 rounded-lg w-[500px] shadow-gray-500 ">
         {/* Role Toggle */}
@@ -255,13 +255,11 @@ export default function Signup() {
             Worker
           </button>
         </div>
-
         {/* Heading */}
         <h2 className="text-center text-xl font-bold mb-3">
           Fill the details
         </h2>
         <hr className="mb-8 border-gray-400 mx-20 " />
-
         {/* Phone Number */}
         <div className="flex items-center bg-white rounded-lg mb-4">
           <span className="px-3 text-black">+91</span>
@@ -272,7 +270,6 @@ export default function Signup() {
           />
           <FaMicrophone className="text-gray-500 mr-2" />
         </div>
-
         {/* Name */}
         <div className="flex items-center bg-white rounded-lg mb-4">
           <input
@@ -290,7 +287,6 @@ export default function Signup() {
             <FaMicrophone />
           </button>
         </div>
-
         {/* Pin Code */}
         <div className="flex items-center bg-white rounded-lg mb-4">
           <input
@@ -308,7 +304,7 @@ export default function Signup() {
             <FaMapMarkerAlt className="text-red-500" />
           </button>
         </div>
-         {/* otp verification Code */}
+        {/* otp verification Code */}
         <div className="flex items-center bg-white rounded-lg mb-6">
           <input
             type="text"
@@ -325,9 +321,8 @@ export default function Signup() {
             <FaMicrophone />
           </button>
         </div>
-
         {/* Get OTP Button */}
-        <button className="w-full bg-white text-[#264a70] font-bold py-2 rounded-lg hover:bg-gray-200">
+        <button className="w-full bg-white text-gray-700 font-bold py-2 rounded-lg hover:bg-orange-200 hover:border-1  hover:border-orange-400 transition duration-300">
           Get OTP
         </button>
 
