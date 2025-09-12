@@ -237,8 +237,10 @@ export default function Signup() {
   };
 
   return (
-    <div className="flex items-center my-15">
-      <div className="bg-indigo-800 text-white p-8 mx-35 rounded-lg w-[500px] shadow-gray-500 relative">
+    <div className="flex items-center  my-15">
+        <img src="" alt="" />
+      <div className="bg-indigo-800 text-white p-8 mx-35 rounded-lg w-[500px] shadow-gray-500 ">
+        {/* Role Toggle */}
         <div className="flex mb-6">
           <button
             className={`flex-1 py-1 font-bold ${role === "employer" ? "bg-orange-200 text-black" : "bg-white text-gray-800"}`}
@@ -254,9 +256,24 @@ export default function Signup() {
           </button>
         </div>
 
-        <h2 className="text-center text-xl font-bold mb-3">Signup</h2>
-        <hr className="mb-6 border-gray-400" />
+        {/* Heading */}
+        <h2 className="text-center text-xl font-bold mb-3">
+          Fill the details
+        </h2>
+        <hr className="mb-8 border-gray-400 mx-20 " />
 
+        {/* Phone Number */}
+        <div className="flex items-center bg-white rounded-lg mb-4">
+          <span className="px-3 text-black">+91</span>
+          <input
+            type="text"
+            placeholder="Phone Number"
+            className="flex-grow px-2 py-2 text-black focus:outline-none"
+          />
+          <FaMicrophone className="text-gray-500 mr-2" />
+        </div>
+
+        {/* Name */}
         <div className="flex items-center bg-white rounded-lg mb-4">
           <input
             type="text"
@@ -274,6 +291,7 @@ export default function Signup() {
           </button>
         </div>
 
+        {/* Pin Code */}
         <div className="flex items-center bg-white rounded-lg mb-4">
           <input
             type="text"
@@ -290,19 +308,8 @@ export default function Signup() {
             <FaMapMarkerAlt className="text-red-500" />
           </button>
         </div>
-
-        {showMap && (
-          <div className="h-80 mb-4 relative">
-            <MapContainer center={currentPos} zoom={13} className="h-full w-full rounded-lg">
-              <TileLayer attribution='&copy; <a href="https://osm.org/copyright">OSM</a>' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-              <SearchBox setFormData={setFormData} />
-              <DraggableMarker formData={formData} setFormData={setFormData} />
-            </MapContainer>
-          </div>
-        )}
-
-        <div className="flex items-center bg-white rounded-lg mb-4">
-          <span className="px-3 text-black">+91</span>
+         {/* otp verification Code */}
+        <div className="flex items-center bg-white rounded-lg mb-6">
           <input
             type="text"
             placeholder="Phone Number"
@@ -319,34 +326,12 @@ export default function Signup() {
           </button>
         </div>
 
-        <div id="recaptcha-container"></div>
+        {/* Get OTP Button */}
+        <button className="w-full bg-white text-[#264a70] font-bold py-2 rounded-lg hover:bg-gray-200">
+          Get OTP
+        </button>
 
-        {!otpRequested && (
-          <button onClick={sendOtp} className="w-full bg-white text-[#264a70] font-bold py-2 rounded-lg mb-3">
-            Get OTP
-          </button>
-        )}
-
-        {otpRequested && (
-          <>
-            <div className="flex items-center bg-white rounded-lg mb-4">
-              <input
-                type="text"
-                placeholder="Enter OTP"
-                value={otp}
-                onChange={(e) => setOtp(e.target.value)}
-                className="flex-grow px-3 py-2 text-black"
-              />
-            </div>
-            <button
-              onClick={verifyAndRegister}
-              className="w-full bg-white text-[#264a70] font-bold py-2 rounded-lg"
-            >
-              Verify & Register
-            </button>
-          </>
-        )}
-
+        {/* Login Redirect */}
         <p className="text-center text-sm mt-4">
           Already have account?{" "}
           <Link to="/login" className="text-orange-300 font-semibold">

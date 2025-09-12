@@ -17,6 +17,7 @@ const Navbar = () => {
 
   return (
     <nav className="flex items-center px-8 bg-indigo-200 shadow-md relative">
+{/* logo */}
       <div>
         <img
           src={logo}
@@ -24,7 +25,7 @@ const Navbar = () => {
           className="hover:bg-indigo-300 rounded-full h-18"
         />
       </div>
-
+{/* nav bar components like home and all */}
       <ul className="flex gap-2 mx-auto text-xl font-semibold">
         <li>
           <a
@@ -59,12 +60,11 @@ const Navbar = () => {
           </a>
         </li>
       </ul>
-
-      {/* 🌐 Language Selector */}
-      <div className="relative mx-4">
+{/* 🌐 Language Selector */}
+      <div className="relative mx-4 ">
         <button
           onClick={() => setShowLang(!showLang)}
-          className="flex items-center gap-2 px-3 py-1 rounded-full shadow hover:bg-indigo-300 transition duration-300"
+          className="flex items-center gap-2 px-3 py-1 rounded-full shadow hover:bg-indigo-300 transition duration-300 cursor-pointer"
         >
           <FaGlobe className="text-blue-900 h-7 w-10" />
           <span>{i18n.language.toUpperCase()}</span>
@@ -129,11 +129,11 @@ const Navbar = () => {
           </div>
         )}
       </div>
-
+{/* location button */}
       <div className="mx-4 rounded-full hover:bg-indigo-300 transition duration-300 px-4 py-1 shadow">
         <CurrentLocation />
       </div>
-
+{/* login sign up button */}
       <div className="flex gap-4">
         <button className="px-6 py-1 bg-indigo-300 text-blue-900 font-medium rounded-full shadow-md hover:bg-indigo-700 hover:text-white transition duration-300"
            onClick={() => navigate("/login")}>
