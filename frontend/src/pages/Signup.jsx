@@ -206,19 +206,12 @@ export default function Signup() {
       }
 
       const idToken = await result.user.getIdToken();
-      console.log("FORM Data >>>",{
-        name:formData.name,
-        pincode:formData.location,
-        role,
-        phone:"+91"+phone,
-        idToken
-      })
+
       const res = await fetch("http://localhost:5000/api/users/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name:formData.name,
-          pincode:formData.location,
+          ...formData,
           role,
           phone: "+91" + phone,
           idToken,
