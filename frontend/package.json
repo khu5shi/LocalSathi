@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.12",
-    "firebase": "^12.2.1",
+    "firebase": "^9.23.0",
     "i18next": "^25.5.0",
     "leaflet": "^1.9.4",
     "react": "^19.1.1",
@@ -31,8 +31,8 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^16.3.0",
-    "rollup": "^4.50.2",
-    "vite": "^7.1.2"
+    "vite": "^7.1.2",
+    "rollup": "4.21.0"
   },
   "engines": {
     "node": "20.x"
