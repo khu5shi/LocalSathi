@@ -230,83 +230,120 @@ export default function Signup() {
   };
 
   return (
-    <div className="flex items-center my-15">
-      <div className="bg-indigo-800 text-white p-8 mx-35 rounded-lg w-[500px] shadow-gray-500 relative">
-        <div className="flex mb-6">
+   <div className="flex max-h-screen items-center justify-center bg-gradient-to-br from-emerald-100 via-white to-emerald-50 ">
+      <div className="bg-white/90 backdrop-blur-lg text-gray-800 p-8 my-10 rounded-3xl shadow-2xl border border-gray-200 w-full max-w-md ">
+        
+        {/* Role Toggle */}
+        <div className="flex mb-6 border border-gray-300 rounded-xl overflow-hidden">
           <button
-            className={`flex-1 py-1 font-bold ${role === "employer" ? "bg-orange-200 text-black" : "bg-white text-gray-800"}`}
+            className={`flex-1 py-2 font-semibold transition-all ${
+              role === "employer"
+                ? "bg-indigo-600 text-white"
+                : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+            }`}
             onClick={() => setRole("employer")}
           >
             Employer
           </button>
           <button
-            className={`flex-1 py-1 font-bold ${role === "worker" ? "bg-orange-200 text-black" : "bg-white text-gray-800"}`}
+            className={`flex-1 py-2 font-semibold transition-all ${
+              role === "worker"
+                ? "bg-indigo-600 text-white"
+                : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+            }`}
             onClick={() => setRole("worker")}
           >
             Worker
           </button>
         </div>
 
-        <h2 className="text-center text-xl font-bold mb-3">Signup</h2>
-        <hr className="mb-6 border-gray-400" />
+        {/* Heading */}
+        <h2 className="text-center text-2xl font-bold mb-2 text-indigo-700">Create Account</h2>
+        <p className="text-center text-sm text-gray-500 mb-6">
+          Sign up to find work or hire talent
+        </p>
 
-        <div className="flex items-center bg-white rounded-lg mb-4">
+        {/* Name */}
+        <div className="flex items-center bg-gray-50 rounded-lg mb-4 shadow-sm">
           <input
             type="text"
             placeholder="Enter Name"
             value={formData.name}
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-            className="flex-grow px-3 py-2 text-black"
+            className="flex-grow px-3 py-2 bg-transparent text-gray-800 focus:outline-none"
           />
           <button
             onMouseDown={nameSpeech.start}
             onMouseUp={nameSpeech.stop}
-            className="text-gray-500 mr-2"
+            className="text-indigo-500 mr-3 hover:scale-110 transition-transform"
           >
             <FaMicrophone />
           </button>
         </div>
 
-        <div className="flex items-center bg-white rounded-lg mb-4">
+        {/* Aadhaar */}
+        <div className="flex items-center bg-gray-50 rounded-lg mb-4 shadow-sm">
+          <input
+            type="text"
+            placeholder="Enter Aadhaar Number"
+            value={formData.aadhaar || ""}
+            onChange={(e) => setFormData({ ...formData, aadhaar: e.target.value })}
+            className="flex-grow px-3 py-2 bg-transparent text-gray-800 focus:outline-none"
+          />
+          <button
+            onMouseDown={nameSpeech.start}
+            onMouseUp={nameSpeech.stop}
+            className="text-indigo-500 mr-3 hover:scale-110 transition-transform"
+          >
+            <FaMicrophone />
+          </button>
+        </div>
+
+        {/* Location */}
+        <div className="flex items-center bg-gray-50 rounded-lg mb-4 shadow-sm">
           <input
             type="text"
             placeholder="Select Location"
             value={formData.location ? formData.location.address : ""}
             readOnly
-            className="flex-grow px-3 py-2 text-black"
+            className="flex-grow px-3 py-2 bg-transparent text-gray-800 focus:outline-none"
           />
           <button
             onClick={() => setShowMap(true)}
             type="button"
-            className="p-2 bg-gray-200 rounded-r-lg hover:bg-gray-300"
+            className="p-2 bg-indigo-100 rounded-r-lg hover:bg-indigo-200 transition"
           >
-            <FaMapMarkerAlt className="text-red-500" />
+            <FaMapMarkerAlt className="text-indigo-600" />
           </button>
         </div>
 
         {showMap && (
-          <div className="h-80 mb-4 relative">
-            <MapContainer center={currentPos} zoom={13} className="h-full w-full rounded-lg">
-              <TileLayer attribution='&copy; <a href="https://osm.org/copyright">OSM</a>' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+          <div className="h-72 mb-4 relative rounded-lg overflow-hidden border border-gray-300 shadow">
+            <MapContainer center={currentPos} zoom={13} className="h-full w-full">
+              <TileLayer
+                attribution='&copy; <a href="https://osm.org/copyright">OSM</a>'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
               <SearchBox setFormData={setFormData} />
               <DraggableMarker formData={formData} setFormData={setFormData} />
             </MapContainer>
           </div>
         )}
 
-        <div className="flex items-center bg-white rounded-lg mb-4">
-          <span className="px-3 text-black">+91</span>
+        {/* Phone */}
+        <div className="flex items-center bg-gray-50 rounded-lg mb-4 shadow-sm">
+          <span className="px-3 text-gray-500">+91</span>
           <input
             type="text"
             placeholder="Phone Number"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
-            className="flex-grow px-2 py-2 text-black"
+            className="flex-grow px-2 py-2 bg-transparent text-gray-800 focus:outline-none"
           />
           <button
             onMouseDown={phoneSpeech.start}
             onMouseUp={phoneSpeech.stop}
-            className="text-gray-500 mr-2"
+            className="text-indigo-500 mr-3 hover:scale-110 transition-transform"
           >
             <FaMicrophone />
           </button>
@@ -314,35 +351,40 @@ export default function Signup() {
 
         <div id="recaptcha-container"></div>
 
+        {/* OTP */}
         {!otpRequested && (
-          <button onClick={sendOtp} className="w-full bg-white text-[#264a70] font-bold py-2 rounded-lg mb-3">
+          <button
+            onClick={sendOtp}
+            className="w-full bg-indigo-600 text-white font-semibold py-2 rounded-lg mb-3 shadow hover:bg-indigo-700 transition"
+          >
             Get OTP
           </button>
         )}
 
         {otpRequested && (
           <>
-            <div className="flex items-center bg-white rounded-lg mb-4">
+            <div className="flex items-center bg-gray-50 rounded-lg mb-4 shadow-sm">
               <input
                 type="text"
                 placeholder="Enter OTP"
                 value={otp}
                 onChange={(e) => setOtp(e.target.value)}
-                className="flex-grow px-3 py-2 text-black"
+                className="flex-grow px-3 py-2 bg-transparent text-gray-800 focus:outline-none"
               />
             </div>
             <button
               onClick={verifyAndRegister}
-              className="w-full bg-white text-[#264a70] font-bold py-2 rounded-lg"
+              className="w-full bg-indigo-600 text-white font-semibold py-2 rounded-lg shadow hover:bg-indigo-700 transition"
             >
               Verify & Register
             </button>
           </>
         )}
 
-        <p className="text-center text-sm mt-4">
-          Already have account?{" "}
-          <Link to="/login" className="text-orange-300 font-semibold">
+        {/* Footer */}
+        <p className="text-center text-sm mt-6 text-gray-600">
+          Already have an account?{" "}
+          <Link to="/login" className="text-indigo-600 font-semibold hover:underline">
             Login
           </Link>
         </p>

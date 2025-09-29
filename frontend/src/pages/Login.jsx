@@ -12,7 +12,6 @@ export default function Login() {
 
   const sendOtp = async () => {
     try {
-      // check if user exists in DB
       const res = await fetch("http://localhost:5000/api/users/check", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -63,29 +62,32 @@ export default function Login() {
   };
 
   return (
-    <div className="flex items-center my-15">
-      <div className="bg-indigo-800 text-white p-8 mx-35 rounded-lg w-[500px] shadow-gray-500">
-        <h2 className="text-center text-xl font-bold mb-3">Login</h2>
-        <hr className="mb-6 border-gray-400" />
+    <div className="flex max-h-screen items-center justify-center bg-gradient-to-br from-emerald-100 via-white to-emerald-50 px-4">
+      <div className="bg-white/90 backdrop-blur-lg text-gray-800 p-8 my-10 rounded-3xl shadow-2xl border border-gray-200 w-full max-w-md relative">
+        {/* Heading */}
+        <h2 className="text-center text-2xl font-bold mb-2 text-indigo-700">Welcome Back</h2>
+        <p className="text-center text-sm text-gray-500 mb-6">Login to continue</p>
 
-        <div className="flex items-center bg-white rounded-lg mb-4">
-          <span className="px-3 text-black">+91</span>
+        {/* Phone */}
+        <div className="flex items-center bg-gray-50 rounded-lg mb-4 shadow-sm">
+          <span className="px-3 text-gray-500">+91</span>
           <input
             type="text"
             placeholder="Phone Number"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
-            className="flex-grow px-2 py-2 text-black"
+            className="flex-grow px-2 py-2 bg-transparent text-gray-800 focus:outline-none"
           />
-          <FaMicrophone className="text-gray-500 mr-2" />
+          <FaMicrophone className="text-indigo-500 mr-3 hover:scale-110 transition-transform" />
         </div>
 
         <div id="recaptcha-container"></div>
 
+        {/* OTP */}
         {!otpRequested && (
           <button
             onClick={sendOtp}
-            className="w-full bg-white text-[#264a70] font-bold py-2 rounded-lg mb-3"
+            className="w-full bg-indigo-600 text-white font-semibold py-2 rounded-lg mb-3 shadow hover:bg-indigo-700 transition"
           >
             Get OTP
           </button>
@@ -93,28 +95,29 @@ export default function Login() {
 
         {otpRequested && (
           <>
-            <div className="flex items-center bg-white rounded-lg mb-4">
+            <div className="flex items-center bg-gray-50 rounded-lg mb-4 shadow-sm">
               <input
                 type="text"
                 placeholder="Enter OTP"
                 value={otp}
                 onChange={(e) => setOtp(e.target.value)}
-                className="flex-grow px-3 py-2 text-black"
+                className="flex-grow px-3 py-2 bg-transparent text-gray-800 focus:outline-none"
               />
-              <FaMicrophone className="text-gray-500 mr-2" />
+              <FaMicrophone className="text-indigo-500 mr-3 hover:scale-110 transition-transform" />
             </div>
             <button
               onClick={verifyAndLogin}
-              className="w-full bg-white text-[#264a70] font-bold py-2 rounded-lg"
+              className="w-full bg-indigo-600 text-white font-semibold py-2 rounded-lg shadow hover:bg-indigo-700 transition"
             >
               Verify & Login
             </button>
           </>
         )}
 
-        <p className="text-center text-sm mt-4">
+        {/* Footer */}
+        <p className="text-center text-sm mt-6 text-gray-600">
           Don’t have an account?{" "}
-          <Link to="/signup" className="text-orange-300 font-semibold">
+          <Link to="/signup" className="text-indigo-600 font-semibold hover:underline">
             Signup
           </Link>
         </p>
