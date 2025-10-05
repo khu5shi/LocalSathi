@@ -19,7 +19,7 @@ export default function SearchBar() {
 
   return (
     <div className="w-full flex justify-center mt-6 px-4 py-10">
-      <div className="flex items-center bg-white rounded-full shadow-lg p-2 w-full max-w-2xl">
+      <div className="flex items-center bg-gray-100 rounded-full shadow-lg p-2 w-full max-w-2xl">
         {/* Input */}
         <input
           type="text"
@@ -28,7 +28,6 @@ export default function SearchBar() {
           placeholder="Search by role (e.g. plumber, carpenter, driver)"
           className="flex-grow px-4 py-2 rounded-l-full focus:outline-none text-gray-700"
         />
-
         {/* Mic Button */}
         <button
           onClick={startListening}
