@@ -1,6 +1,8 @@
 import { FaCheckCircle, FaMicrophoneAlt, FaMapMarkerAlt, FaShieldAlt, FaBolt } from "react-icons/fa";
+import {useTheme} from "../context/ThemeContext"
 
 export default function Features() {
+  const {theme}=useTheme();
   const features = [
     {
       icon: <FaCheckCircle className="text-emerald-500 text-4xl" />,
@@ -40,17 +42,29 @@ export default function Features() {
   ];
 
   return (
-    <section className="relative py-10 overflow-hidden bg-gradient-to-r from-indigo-200 to-purple-200">
+    <section className={`relative py-10 overflow-hidden 
+                          ${theme ==="dark"
+                          ?"bg-gradient-to-r from-indigo-900 to-purple-900"
+                           :"bg-gradient-to-r from-indigo-200 to-purple-200"}`}>
       <div className="relative max-w-7xl mx-auto px-6">
         {/* Header */}
         <div className="text-center mb-14">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          <h2 className={`text-4xl md:text-5xl font-bold  mb-4
+                           ${theme === "dark" 
+                           ?"text-gray-100"
+                           :"text-gray-900"}`}>
             Why Choose{" "}
-            <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+            <span className={`bg-gradient-to-r  bg-clip-text text-transparent
+                               ${theme === "dark" 
+                           ?"from-indigo-400 to-purple-400"
+                           :"from-indigo-600 to-purple-600"}`}>
               Our Platform?
             </span>
           </h2>
-          <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+          <p className={` text-lg max-w-2xl mx-auto
+                          ${theme==="dark"
+                            ? "text-gray-300"
+                            :"text-gray-600"}`}>
             Experience the future of job matching with our cutting-edge features
           </p>
         </div>

@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { FaMapMarkerAlt } from "react-icons/fa";
 
-export default function CurrentLocation() {
+export default function CurrentLocation({ className = "" }) {
   const [locationText, setLocationText] = useState("Detecting...");
 
   useEffect(() => {
@@ -14,7 +14,7 @@ export default function CurrentLocation() {
           try {
             const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`;
             const res = await fetch(url, {
-              headers: { "Accept": "application/json" },
+              headers: { Accept: "application/json" },
             });
             const data = await res.json();
 
@@ -43,8 +43,12 @@ export default function CurrentLocation() {
 
   return (
     <div className="flex items-center gap-2 cursor-pointer">
-      <FaMapMarkerAlt className="text-red-500 text-3xl" />
-      <span className="text-sm font-light">{locationText}</span>
+      <FaMapMarkerAlt
+        className={`text-2xl ${
+          className.includes("dark") ? "text-indigo-400" : "text-red-500"
+        }`}
+      />
+      <span className={`truncate ${className}`}>{locationText}</span>
     </div>
   );
 }

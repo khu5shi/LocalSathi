@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
-
+import {useTheme} from "../context/ThemeContext"
 const StatsSection = () => {
+  const {theme} =useTheme();
   const [isVisible, setIsVisible] = useState(false);
   const [counts, setCounts] = useState([0, 0, 0]);
   const sectionRef = useRef(null);
@@ -87,7 +88,10 @@ const StatsSection = () => {
   return (
     <section 
       ref={sectionRef}
-      className="relative py-20 overflow-hidden bg-gradient-to-br from-slate-50 via-white to-indigo-50"
+      className={`relative py-20 overflow-hidden bg-gradient-to-br 
+                      ${theme === "dark"
+                       ?"from-slate-500 to-indigo-500"
+                      :"from-slate-50 via-white to-indigo-50"}`}
     >
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -114,13 +118,22 @@ const StatsSection = () => {
       <div className="relative max-w-7xl mx-auto px-6">
         {/* Header */}
         <div className="text-center mb-16">
-          <h2 className={`text-4xl md:text-5xl font-bold text-gray-900 mb-4 transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <h2 className={`text-4xl md:text-5xl font-bold  mb-4 transition-all duration-700 delay-100
+                           ${theme === "dark"
+                            ?"text-gray-100"
+                           :"text-gray-900"}`}>
             Growing{" "}
-            <span className="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+            <span className={`bg-gradient-to-r  bg-clip-text text-transparent
+                                 ${theme === "dark"
+                                 ?"from-emerald-400 to-teal-400"
+                                 :"from-emerald-600 to-teal-600"}`}>
               Together
             </span>
           </h2>
-          <p className={`text-gray-600 text-lg transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <p className={` text-lg transition-all duration-700 delay-200 
+                           ${theme === "dark"
+                           ?"text-gray-300"
+                          :"text-gray-600"}`}>
             Join thousands who trust LocalSathi for their employment needs
           </p>
         </div>
@@ -190,7 +203,10 @@ const StatsSection = () => {
 
         {/* Bottom tagline */}
         <div className={`text-center mt-16 transition-all duration-700 delay-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <p className="text-gray-600 text-lg mb-6">
+          <p className={`text-lg mb-6 
+                         ${theme === "dark"
+                         ?"text-gray-300 "
+                        :"text-gray-600 "}`}>
             Be part of our rapidly growing community
           </p>
           <div className="flex justify-center gap-2">

@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { FaHardHat, FaTractor, FaHome, FaStore, FaTruck, FaUtensils, FaBroom, FaTools } from "react-icons/fa";
+import {useTheme} from "../context/ThemeContext"
 
 const Popularjobs = () => {
+  const {theme} = useTheme();
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
   const jobs = [
@@ -72,7 +74,10 @@ const Popularjobs = () => {
   ];
 
   return (
-    <section className="relative py-20 overflow-hidden bg-gradient-to-r from-yellow-50 via-amber-100 to-orange-200">
+    <section className={`relative py-20 overflow-hidden 
+                              ${theme === "dark"
+                               ?"bg-black"
+                               :"bg-yellow-50"}`}>
       {/* Animated background shapes */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 left-10 w-72 h-72 bg-orange-200/30 rounded-full blur-3xl animate-pulse"></div>
@@ -82,7 +87,10 @@ const Popularjobs = () => {
       <div className="relative max-w-7xl mx-auto px-6">
         {/* Header */}
         <div className="text-center mb-14">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          <h2 className={`text-4xl md:text-5xl font-bold  mb-4
+                             ${theme === "dark" 
+                             ?"text-gray-200"
+                             :"text-gray-900"}`}>
             Popular{" "}
             <span className="bg-gradient-to-r from-orange-500 via-amber-500 to-orange-600 bg-clip-text text-transparent">
               Job Categories
@@ -142,7 +150,10 @@ const Popularjobs = () => {
 
         {/* Bottom CTA */}
         <div className="text-center mt-16">
-          <p className="text-gray-600 mb-6 text-lg">Can't find what you're looking for?</p>
+          <p className={` mb-6 text-lg
+                             ${theme === "dark"
+                             ?"text-gray-300"
+                            :"text-gray-600"}`}>Can't find what you're looking for?</p>
           <button className="group relative px-8 py-4 bg-gradient-to-r from-orange-500 to-amber-500 text-white font-semibold rounded-full shadow-lg shadow-orange-300/50 hover:shadow-xl hover:shadow-orange-400/50 transition-all duration-300 overflow-hidden">
             <span className="relative z-10">View All Categories</span>
             <div className="absolute inset-0 bg-gradient-to-r from-amber-500 to-orange-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>

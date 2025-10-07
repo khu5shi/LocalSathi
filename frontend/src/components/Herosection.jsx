@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import hero from "../assets/hero.png";
+import { useTheme } from "../context/ThemeContext";
 
 const Herosection = () => {
+   const { theme } = useTheme();
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {

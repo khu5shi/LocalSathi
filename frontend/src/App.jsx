@@ -6,6 +6,8 @@ import Signup from "./pages/Signup";
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import About from './pages/About';
+import Service from './pages/Service';
+import Contactus from './pages/Contactus';
 
 
 
@@ -21,6 +23,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/about" element={<About/>}/>
+        <Route path="/services" element={<Service/>}/>
+        <Route path="/contact" element={<Contactus/>}/>
       </Routes>
        <Footer/>
     </>
