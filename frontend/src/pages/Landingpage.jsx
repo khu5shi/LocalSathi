@@ -9,7 +9,7 @@ import {useTheme} from "../context/ThemeContext"
 const Landingpage = () => {
   const { theme }= useTheme();
   return (
-    <div className={`${theme ==="dark" 
+    <div className={`pt-26 ${theme ==="dark" 
                           ? "bg-black"
                         : "bg-white"
                         }`}>

@@ -11,7 +11,10 @@ const Herosection = () => {
   }, []);
 
   return (
-    <div className="relative mt-25 mx-3 rounded-3xl h-[105vh] flex items-center justify-center overflow-hidden">
+    <div className={`relative  mx-3 rounded-3xl h-[105vh] flex items-center justify-center overflow-hidden
+                    ${theme === "dark"
+                     ?"bg-black"
+                     :"bg-white"}`}>
       {/* Animated gradient background */}
       <div className="absolute inset-0 bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 rounded-3xl">
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/40 to-transparent"></div>

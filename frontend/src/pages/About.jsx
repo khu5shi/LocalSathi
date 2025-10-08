@@ -110,10 +110,10 @@ const About = () => {
   ];
 
   return (
-    <div className={`min-h-screen bg-gradient-to-b 
+    <div className={`min-h-screen bg-gradient-to-b pt-25
                     ${theme === 'dark' 
-                    ? "from-white via-indigo-50/30 to-white mt-25"
-                    :"from-white via-indigo-50/30 to-white mt-25"}`}>
+                    ? " from-black via-indigo-800/30 to-black"
+                    :" from-white via-indigo-50/30 to-white "}`}>
       {/* Hero Section */}
       <section className="relative  overflow-hidden">
         <div className="absolute inset-0">
@@ -122,14 +122,20 @@ const About = () => {
         </div>
 
         <div className="relative max-w-6xl mx-auto px-6 text-center">
-          <h1 className="text-5xl md:text-7xl font-black text-gray-900 mb-6">
+          <h1 className={`text-5xl md:text-7xl font-black  mb-6
+                       ${theme === "dark"
+                        ?"text-gray-100"
+                        :"text-gray-900"}`}>
             Empowering{" "}
             <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
               Local Communities
             </span>
           </h1>
           
-          <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          <p className={`text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed
+                           ${theme === "dark"
+                           ?"text-gray-400 "
+                          :"text-gray-600 "}`}>
             We're bridging the gap between opportunity and talent, one local connection at a time.
           </p>
         </div>
