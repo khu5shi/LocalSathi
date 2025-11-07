@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { FaGlobe, FaChevronDown, FaMoon, FaSun } from "react-icons/fa";
 import logo from "../assets/logo.png";
+import logow from "../assets/logo2.png";
 import CurrentLocation from "./CurrentLocation";
 import { useTheme } from "../context/ThemeContext";
 
@@ -51,6 +52,7 @@ const Navbar = () => {
     { id: "about", label: t("about"), path: "/about" },
     { id: "services", label: t("services"), path: "/services" },
     { id: "contact", label: t("contact"), path: "/contact" },
+    {id: "workerdashboard", label: t("workerdashboard"), path: "/workerdashboard"}
   ];
 
   return (
@@ -72,7 +74,7 @@ const Navbar = () => {
             <div className="group relative cursor-pointer">
               <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full blur-lg opacity-0 group-hover:opacity-30 transition-opacity duration-500"></div>
               <img
-                src={logo}
+                src={theme === "dark" ? `${logow}` : `${logo}`}
                 alt="LocalSathi"
                 className="relative h-14 w-14 rounded-full transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 shadow-lg"
               />

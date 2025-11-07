@@ -2,8 +2,9 @@ import { useRef, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { FaMicrophone } from "react-icons/fa";
 import { sendOtpFirebase } from "../firebase";
-
+import { useTheme } from "../context/ThemeContext";
 export default function Login() {
+  const { theme } = useTheme();
   const [phone, setPhone] = useState("");
   const [otp, setOtp] = useState("");
   const [otpRequested, setOtpRequested] = useState(false);
@@ -12,7 +13,7 @@ export default function Login() {
 
   const sendOtp = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/users/check", {
+      const res = await fetch("https://localsathi-backend.onrender.com/api/users/check", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ phone: "+91" + phone }),
@@ -43,7 +44,7 @@ export default function Login() {
       const result = await confirmationRef.current.confirm(otp);
       const idToken = await result.user.getIdToken(true);
 
-      const res = await fetch("http://localhost:5000/api/users/login", {
+      const res = await fetch("https://localsathi-backend.onrender.com/api/users/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ phone: "+91" + phone, idToken }),
@@ -62,11 +63,11 @@ export default function Login() {
   };
 
   return (
-    <div className="flex max-h-screen items-center justify-center bg-gradient-to-br from-emerald-100 via-white to-emerald-50 px-4">
-      <div className="bg-white/90 backdrop-blur-lg text-gray-800 p-8 my-10 rounded-3xl shadow-2xl border border-gray-200 w-full max-w-md relative">
+    <div className={`flex max-h-screen pt-20 items-center justify-center bg-gradient-to-br  px-4 ${theme === "dark" ?"from-black via-indigo-950 to-black" :"from-emerald-100 via-white to-emerald-50"}`}>
+      <div className={` backdrop-blur-lg text-gray-800 p-8 my-10 rounded-3xl shadow-2xl border  w-full max-w-md relative ${theme  === "dark" ?"bg-white/10 border-gray-200" :"bg-white/90 border-gray-300"}`}>
         {/* Heading */}
-        <h2 className="text-center text-2xl font-bold mb-2 text-indigo-700">Welcome Back</h2>
-        <p className="text-center text-sm text-gray-500 mb-6">Login to continue</p>
+        <h2 className={`text-center text-2xl font-bold mb-2  ${theme === "dark" ?"text-indigo-500" :"text-indigo-800"}`}>Welcome Back</h2>
+        <p className={`text-center text-sm  mb-6 ${theme === "dark" ?"text-gray-300" :"text-gray-500"}`}>Login to continue</p>
 
         {/* Phone */}
         <div className="flex items-center bg-gray-50 rounded-lg mb-4 shadow-sm">
@@ -115,9 +116,9 @@ export default function Login() {
         )}
 
         {/* Footer */}
-        <p className="text-center text-sm mt-6 text-gray-600">
+        <p className={`text-center text-sm mt-6  ${theme === "dark" ?"text-gray-300" :"text-gray-600"}`}>
           Don’t have an account?{" "}
-          <Link to="/signup" className="text-indigo-600 font-semibold hover:underline">
+          <Link to="/signup" className={`font-semibold hover:underline ${theme === "dark" ?"text-indigo-500" :"text-indigo-600"}`}>
             Signup
           </Link>
         </p>

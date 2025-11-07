@@ -8,6 +8,7 @@ import Footer from './components/Footer';
 import About from './pages/About';
 import Service from './pages/Service';
 import Contactus from './pages/Contactus';
+import Homepageforworker from './pages/Homepageforworker';
 
 
 
@@ -25,6 +26,7 @@ function App() {
         <Route path="/about" element={<About/>}/>
         <Route path="/services" element={<Service/>}/>
         <Route path="/contact" element={<Contactus/>}/>
+        <Route path="/workerdashboard" element={<Homepageforworker/>}/>
       </Routes>
        <Footer/>
     </>

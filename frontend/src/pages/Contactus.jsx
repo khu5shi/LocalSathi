@@ -1,6 +1,8 @@
 import { useState } from 'react';
+import { useTheme } from "../context/ThemeContext";
 
 export default function Contactus() {
+  const { theme } = useTheme();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -69,8 +71,8 @@ export default function Contactus() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+    <div className={`min-h-screen bg-gradient-to-br  ${theme === "dark" ?"from-black via-indigo-900 to-black" :"from-white via-indigo-50/30 to-white"}`}>
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-25">
         {/* Header */}
         <div className="text-center mb-16">
           <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-4 ">
@@ -78,7 +80,7 @@ export default function Contactus() {
               Get In Touch
             </span>
           </h1>
-          <p className="text-xl text-gray-700 max-w-2xl mx-auto">
+          <p className={`text-xl  max-w-2xl mx-auto  ${theme === "dark" ?"text-gray-300" :"text-gray-700"}`}>
             We're here to help! Reach out to us for any questions about Local Sathi platform
           </p>
         </div>
@@ -90,7 +92,7 @@ export default function Contactus() {
             return (
               <div
                 key={idx}
-                className="group relative bg-white backdrop-blur-lg rounded-2xl p-6 border border-gray-200 hover:border-purple-300 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+                className={`group relative  backdrop-blur-lg rounded-2xl p-6 border-3 border-gray-200  shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 ${theme === "dark" ?"bg-white/90 hover:border-emerald-400" :"bg-white hover:border-purple-300"}`}
               >
                 <div className={`${item.color} w-12 h-12 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-md`}>
                   <div className="text-white">

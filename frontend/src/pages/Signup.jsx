@@ -5,6 +5,7 @@ import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import { sendOtpFirebase } from "../firebase.js";
+import { useTheme } from "../context/ThemeContext";
 
 const markerIcon = new L.Icon({
   iconUrl: "https://unpkg.com/leaflet@1.7/dist/images/marker-icon.png",
@@ -111,8 +112,57 @@ function SearchBox({ setFormData }) {
     setQuery(place.display_name);
   };
 
+  // otp verification 
+  const sendOtp = async () => {
+    try {
+      const confirmation = await sendOtpFirebase("+91" + phone);
+      confirmationRef.current = confirmation;
+      setOtpRequested(true);
+      alert("OTP sent to +91" + phone);
+    } catch (err) {
+      alert("Error sending OTP: " + err.message);
+    }
+  };
+
+  const verifyAndRegister = async () => {
+    try {
+      if (!confirmationRef.current) {
+        alert("Please request OTP again");
+        return;
+      }
+      const result = await confirmationRef.current.confirm(otp);
+
+      if (!result.user) {
+        alert("Otp verification failed. Please try again.");
+        return;
+      }
+
+      const idToken = await result.user.getIdToken();
+
+      const res = await fetch("https://localsathi-backend.onrender.com/api/users/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...formData,
+          role,
+          phone: "+91" + phone,
+          idToken,
+        }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        alert("Registration Successful ✅");
+        navigate("/");
+      } else {
+        alert("Error: " + (data.message || "server error"));
+      }
+    } catch (err) {
+      alert("OTP Verification Failed: " + err.message);
+    }
+  };
+  
   return (
-    <div className="absolute top-2 left-2 right-2 z-[1000] bg-white rounded-lg shadow p-2">
+    <div className="absolute top-2 left-2 right-2 z-[1000] bg-white rounded-lg shadow p-2 ">
       <div className="flex">
         <input
           type="text"
@@ -146,6 +196,7 @@ function SearchBox({ setFormData }) {
 }
 
 export default function Signup() {
+  const { theme } = useTheme();
   const [role, setRole] = useState("employer");
   const [formData, setFormData] = useState({ name: "", location: null });
   const [phone, setPhone] = useState("");
@@ -230,11 +281,11 @@ export default function Signup() {
   };
 
   return (
-   <div className="flex max-h-screen items-center justify-center bg-gradient-to-br from-emerald-100 via-white to-emerald-50 ">
-      <div className="bg-white/90 backdrop-blur-lg text-gray-800 p-8 my-10 rounded-3xl shadow-2xl border border-gray-200 w-full max-w-md ">
+   <div className={`flex max-h-screen pt-20 items-center justify-center bg-gradient-to-br  ${theme ==="dark" ?"from-black via-indigo-950 to-black" :"from-emerald-100 via-white to-emerald-50"}`}>
+      <div className={` backdrop-blur-lg text-gray-800 p-8 my-10 rounded-3xl shadow-2xl border border-gray-200 w-full max-w-md ${theme  === "dark" ?"bg-white/10 border-gray-200" :"bg-white/90 border-gray-300"}`}>
         
         {/* Role Toggle */}
-        <div className="flex mb-6 border border-gray-300 rounded-xl overflow-hidden">
+        <div className={`flex mb-6 border  rounded-xl overflow-hidden ${theme === "dark" ?"border-gray-700" :"border-gray-300"}`}>
           <button
             className={`flex-1 py-2 font-semibold transition-all ${
               role === "employer"
@@ -258,8 +309,8 @@ export default function Signup() {
         </div>
 
         {/* Heading */}
-        <h2 className="text-center text-2xl font-bold mb-2 text-indigo-700">Create Account</h2>
-        <p className="text-center text-sm text-gray-500 mb-6">
+        <h2 className={`text-center text-2xl font-bold mb-2  ${theme === "dark" ?"text-indigo-500" :"text-indigo-700"}`}>Create Account</h2>
+        <p className={`text-center text-sm  mb-6 ${theme === "dark" ?"text-gray-300" :"text-gray-500"}`}>
           Sign up to find work or hire talent
         </p>
 
@@ -382,7 +433,7 @@ export default function Signup() {
         )}
 
         {/* Footer */}
-        <p className="text-center text-sm mt-6 text-gray-600">
+        <p className={`text-center text-sm mt-6  ${theme === "dark" ?"text-gray-300" :"text-gray-600"}`}>
           Already have an account?{" "}
           <Link to="/login" className="text-indigo-600 font-semibold hover:underline">
             Login

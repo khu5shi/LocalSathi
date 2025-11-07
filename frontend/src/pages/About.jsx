@@ -134,7 +134,7 @@ const About = () => {
           
           <p className={`text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed
                            ${theme === "dark"
-                           ?"text-gray-400 "
+                           ?"text-gray-300 "
                           :"text-gray-600 "}`}>
             We're bridging the gap between opportunity and talent, one local connection at a time.
           </p>
@@ -147,7 +147,10 @@ const About = () => {
         className={`py-20 transition-all duration-1000 ${isVisible.mission ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
       >
         <div className="max-w-7xl mx-auto px-6">
-          <div className="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-3xl p-12 md:p-16 text-white shadow-2xl shadow-indigo-300/50 relative overflow-hidden">
+          <div className={` rounded-3xl p-12 md:p-16 text-white shadow-xl shadow-indigo-300/10 relative overflow-hidden
+                           ${theme === "dark"
+                           ? "bg-gradient-to-br from-indigo-700 to-purple-800"
+                          :"bg-gradient-to-br from-indigo-500 to-purple-600"}`}>
             <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
             <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
             
@@ -187,14 +190,27 @@ const About = () => {
       {/* Values Section */}
       <section 
         ref={el => sectionRefs.current['values'] = el}
-        className={`py-7 transition-all duration-1000 bg-gradient-to-b from-indigo-100 to-purple-100 ${isVisible.values ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+        className={`py-7 transition-all duration-1000  ${isVisible.values ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}
+                     ${theme === "dark"
+                     ?"bg-gradient-to-b from-indigo-800 to-purple-800"
+                    :"bg-gradient-to-b from-indigo-100 to-purple-100"}`}
       >
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              Our Core <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Values</span>
+            <h2 className={`text-4xl md:text-5xl font-bold  mb-4
+                         ${theme === "dark"
+                         ?"text-gray-200"
+                        :"text-gray-900"}`}>
+              Our Core <span className={` bg-clip-text text-transparent
+                                 ${theme ==="dark"
+                                 ?"bg-gradient-to-r from-indigo-600 to-purple-600"
+                                :"bg-gradient-to-r from-indigo-600 to-purple-600"}
+                                 `}>Values</span>
             </h2>
-            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+            <p className={`text-lg max-w-2xl mx-auto
+                          ${theme === "dark" 
+                          ? "text-gray-100" 
+                          : "text-gray-600"} `}>
               The principles that guide everything we do
             </p>
           </div>
@@ -203,7 +219,10 @@ const About = () => {
             {values.map((value, index) => (
               <div
                 key={index}
-                className="group bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-105 border border-gray-100"
+                className={`group  rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-105 border border-gray-100
+                           ${theme === "dark"
+                           ?"bg-white/70"
+                          :"bg-white"}`}
                 style={{ transitionDelay: `${index * 100}ms` }}
               >
                 <div className={`inline-flex items-center justify-center w-16 h-16 ${value.bgColor} rounded-2xl mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500`}>
@@ -223,17 +242,29 @@ const About = () => {
       {/* Timeline Section */}
       <section 
         ref={el => sectionRefs.current['timeline'] = el}
-        className={`py-20 bg-gradient-to-br from-gray-50 to-indigo-50/50 transition-all duration-1000 ${isVisible.timeline ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+        className={`py-20  transition-all duration-1000 ${isVisible.timeline ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}
+                   ${theme === "dark"
+                   ?"bg-gradient-to-br from-gray-800 to-indigo-800"
+                  :"bg-gradient-to-br from-gray-50 to-indigo-50/50"}`}
       >
         <div className="max-w-6xl mx-auto px-6">
   <div className="text-center mb-20">
-    <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">
+    <h2 className={`text-4xl md:text-5xl font-extrabold  mb-4
+                  ${theme === "dark"
+                  ?"text-gray-200"
+                :"text-gray-900"}`}>
       Our{" "}
-      <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+      <span className={` bg-clip-text text-transparent
+             ${theme === "dark"
+             ?"bg-gradient-to-r from-indigo-600 to-purple-600"
+            :"bg-gradient-to-r from-indigo-600 to-purple-600"}`}>
         Journey
       </span>
     </h2>
-    <p className="text-gray-500 text-lg">
+    <p className={` text-lg
+                  ${theme === "dark"
+                  ?"text-gray-200"
+                :"text-gray-500"}`}>
       Milestones that shaped LocalSathi
     </p>
   </div>
@@ -267,7 +298,7 @@ const About = () => {
         </div>
 
         {/* Timeline dot */}
-        <div className="absolute top-10 left-1/2 w-6 h-6 flex items-center justify-center bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full -translate-x-1/2 border-4 border-white shadow-md hidden md:flex">
+        <div className="absolute top-10 left-1/2 w-6 h-6  items-center justify-center bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full -translate-x-1/2 border-4 border-white shadow-md hidden md:flex">
           <span className="w-2 h-2 bg-white rounded-full"></span>
         </div>
       </div>
@@ -280,28 +311,44 @@ const About = () => {
       {/* Team Section */}
       <section 
         ref={el => sectionRefs.current['team'] = el}
-        className={`py-20 transition-all duration-1000 ${isVisible.team ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+        className={`py-20 transition-all duration-1000 bg-gradient-to-b ${isVisible.team ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}
+          ${theme ==="dark" ?"from-black via-indigo-900 to-black" :""}`}
       >
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              Meet Our <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Team</span>
+            <h2 className={`text-4xl md:text-5xl font-bold  mb-4
+                        ${theme === "dark"
+                        ?"text-gray-200"
+                      :"text-gray-900"}`}>
+              Meet Our <span className={` bg-clip-text text-transparent
+                             ${theme === "dark"
+                             ?"bg-gradient-to-r from-indigo-800 to-purple-800"
+                            :"bg-gradient-to-r from-indigo-600 to-purple-600"}`}>Team</span>
             </h2>
-            <p className="text-gray-600 text-lg">The people making it all possible</p>
+            <p className={` text-lg
+                             ${theme === "dark"
+                             ?"text-gray-300"
+                            :"text-gray-600"}`}>The people making it all possible</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {team.map((member, index) => (
               <div
                 key={index}
-                className="group bg-white rounded-3xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-105 border border-gray-100 text-center"
+                className={`group  rounded-3xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-105 border border-gray-100 text-center
+                            ${theme === "dark"
+                            ?"bg-white/10"
+                          :"bg-white"}`}
               >
                 <div className="text-7xl mb-4 group-hover:scale-110 transition-transform duration-500">
                   {member.image}
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-1">{member.name}</h3>
                 <div className="text-sm font-semibold text-indigo-600 mb-3">{member.role}</div>
-                <p className="text-gray-600 text-sm leading-relaxed">{member.bio}</p>
+                <p className={` text-sm leading-relaxed
+                               ${theme === "dark"
+                               ?"text-gray-400"
+                              :"text-gray-600"}`}>{member.bio}</p>
               </div>
             ))}
           </div>
@@ -311,21 +358,33 @@ const About = () => {
       {/* Testimonials Section */}
       <section 
         ref={el => sectionRefs.current['testimonials'] = el}
-        className={`py-20 bg-gradient-to-br from-indigo-50 to-purple-50 transition-all duration-1000 ${isVisible.testimonials ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+        className={`py-20  transition-all duration-1000 ${isVisible.testimonials ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}
+                   ${theme === "dark"
+                   ?"bg-gradient-to-br from-indigo-900 to-purple-900"
+                  :"bg-gradient-to-br from-indigo-50 to-purple-50"}`}
       >
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            <h2 className={`text-4xl md:text-5xl font-bold  mb-4
+              ${theme === "dark"
+              ?"text-gray-200"
+            :"text-gray-900"}`}>
               What People <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Say</span>
             </h2>
-            <p className="text-gray-600 text-lg">Real stories from our community</p>
+            <p className={` text-lg
+                   ${theme === "dark"
+                   ?"text-gray-300"
+                  :"text-gray-600"}`}>Real stories from our community</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {testimonials.map((testimonial, index) => (
               <div
                 key={index}
-                className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100"
+                className={` rounded-3xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100
+                            ${theme === "dark"
+                            ?"bg-white/90"
+                          :"bg-white"}`}
               >
                 <FaQuoteLeft className="text-4xl text-indigo-300 mb-4" />
                 <p className="text-gray-700 text-lg leading-relaxed mb-6 italic">
