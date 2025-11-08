@@ -5,11 +5,13 @@ import { sendOtpFirebase } from "../firebase";
 import { useTheme } from "../context/ThemeContext";
 
 export default function Login() {
+   
   const { theme } = useTheme();
   const [phone, setPhone] = useState("");
   const [otp, setOtp] = useState("");
   const [otpRequested, setOtpRequested] = useState(false);
   const confirmationRef = useRef(null);
+  
   const sendOtp = async () => {
     try {
       const res = await fetch("https://localsathi-backend.onrender.com/api/users/check", {
@@ -53,7 +55,7 @@ export default function Login() {
       const data = await res.json();
       if (res.ok) {
         alert("Login successful ✅");
-        navigate("/workerdashboard");
+        navigate("/");
       } else {
         alert("Error: " + data.message);
       }
