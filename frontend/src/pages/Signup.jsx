@@ -1,3 +1,4 @@
+// Signup.jsx
 import { useRef, useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { FaMicrophone, FaMapMarkerAlt } from "react-icons/fa";
@@ -60,6 +61,7 @@ function DraggableMarker({ formData, setFormData }) {
     if (formData.location) {
       setPosition([formData.location.lat, formData.location.lng]);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formData.location]);
 
   return (
@@ -91,7 +93,7 @@ function SearchBox({ setFormData }) {
     if (!query) return;
     try {
       const res = await fetch(
-        `https://nominatim.openstreetmap.org/search?q=${query}&format=json&limit=5`
+        `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&limit=5`
       );
       const data = await res.json();
       setResults(data);
@@ -112,55 +114,6 @@ function SearchBox({ setFormData }) {
     setQuery(place.display_name);
   };
 
-  // otp verification 
-  const sendOtp = async () => {
-    try {
-      const confirmation = await sendOtpFirebase("+91" + phone);
-      confirmationRef.current = confirmation;
-      setOtpRequested(true);
-      alert("OTP sent to +91" + phone);
-    } catch (err) {
-      alert("Error sending OTP: " + err.message);
-    }
-  };
-
-  const verifyAndRegister = async () => {
-    try {
-      if (!confirmationRef.current) {
-        alert("Please request OTP again");
-        return;
-      }
-      const result = await confirmationRef.current.confirm(otp);
-
-      if (!result.user) {
-        alert("Otp verification failed. Please try again.");
-        return;
-      }
-
-      const idToken = await result.user.getIdToken();
-
-      const res = await fetch("https://localsathi-backend.onrender.com/api/users/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...formData,
-          role,
-          phone: "+91" + phone,
-          idToken,
-        }),
-      });
-      const data = await res.json();
-      if (res.ok) {
-        alert("Registration Successful ✅");
-        navigate("/");
-      } else {
-        alert("Error: " + (data.message || "server error"));
-      }
-    } catch (err) {
-      alert("OTP Verification Failed: " + err.message);
-    }
-  };
-  
   return (
     <div className="absolute top-2 left-2 right-2 z-[1000] bg-white rounded-lg shadow p-2 ">
       <div className="flex">
@@ -171,10 +124,7 @@ function SearchBox({ setFormData }) {
           placeholder="Search nearby..."
           className="flex-grow px-2 py-1 border rounded-l-lg text-black"
         />
-        <button
-          onClick={handleSearch}
-          className="px-3 py-1 bg-indigo-600 text-white rounded-r-lg"
-        >
+        <button onClick={handleSearch} className="px-3 py-1 bg-indigo-600 text-white rounded-r-lg">
           Search
         </button>
       </div>
@@ -212,34 +162,46 @@ export default function Signup() {
 
   useEffect(() => {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(async (pos) => {
-        const { latitude, longitude } = pos.coords;
-        setCurrentPos([latitude, longitude]);
-        try {
-          const res = await fetch(
-            `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`
-          );
-          const data = await res.json();
-          const address = data.display_name;
-          setFormData((prev) => ({
-            ...prev,
-            location: { lat: latitude, lng: longitude, address },
-          }));
-        } catch (err) {
-          console.error("Error fetching current address", err);
-        }
-      });
+      navigator.geolocation.getCurrentPosition(
+        async (pos) => {
+          const { latitude, longitude } = pos.coords;
+          setCurrentPos([latitude, longitude]);
+          try {
+            const res = await fetch(
+             ` https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`
+            );
+            const data = await res.json();
+            const address = data.display_name;
+            setFormData((prev) => ({
+              ...prev,
+              location: { lat: latitude, lng: longitude, address },
+            }));
+          } catch (err) {
+            console.error("Error fetching current address", err);
+          }
+        },
+        (err) => {
+          console.warn("Geolocation failed or denied:", err);
+        },
+        { enableHighAccuracy: true, maximumAge: 1000 * 60 * 5 }
+      );
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const sendOtp = async () => {
     try {
-      const confirmation = await sendOtpFirebase("+91" + phone);
+      if (!phone || phone.length < 6) {
+        alert("Please enter a valid phone number.");
+        return;
+      }
+      const confirmation = await sendOtpFirebase("+91" + phone); // your firebase helper
       confirmationRef.current = confirmation;
       setOtpRequested(true);
       alert("OTP sent to +91" + phone);
     } catch (err) {
-      alert("Error sending OTP: " + err.message);
+      console.error("Error sending OTP:", err);
+      alert("Error sending OTP: " + (err.message || err));
     }
   };
 
@@ -258,7 +220,8 @@ export default function Signup() {
 
       const idToken = await result.user.getIdToken();
 
-      const res = await fetch("http://localhost:5000/api/users/register", {
+      // keep endpoint as you had originally (localhost). If you want production, change the URL.
+      const res = await fetch("https://localsathi-backend.onrender.com/api/users/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -276,16 +239,28 @@ export default function Signup() {
         alert("Error: " + (data.message || "server error"));
       }
     } catch (err) {
-      alert("OTP Verification Failed: " + err.message);
+      console.error("OTP verification/registration error:", err);
+      alert("OTP Verification Failed: " + (err.message || err));
     }
   };
 
   return (
-   <div className={`flex max-h-screen pt-20 items-center justify-center bg-gradient-to-br  ${theme ==="dark" ?"from-black via-indigo-950 to-black" :"from-emerald-100 via-white to-emerald-50"}`}>
-      <div className={` backdrop-blur-lg text-gray-800 p-8 my-10 rounded-3xl shadow-2xl border border-gray-200 w-full max-w-md ${theme  === "dark" ?"bg-white/10 border-gray-200" :"bg-white/90 border-gray-300"}`}>
-        
+    <div
+      className={`flex max-h-screen pt-20 items-center justify-center bg-gradient-to-br ${
+        theme === "dark" ? "from-black via-indigo-950 to-black" : "from-emerald-100 via-white to-emerald-50"
+      }`}
+    >
+      <div
+        className={`backdrop-blur-lg text-gray-800 p-8 my-10 rounded-3xl shadow-2xl border border-gray-200 w-full max-w-md ${
+          theme === "dark" ? "bg-white/10 border-gray-200" : "bg-white/90 border-gray-300"
+        }`}
+      >
         {/* Role Toggle */}
-        <div className={`flex mb-6 border  rounded-xl overflow-hidden ${theme === "dark" ?"border-gray-700" :"border-gray-300"}`}>
+        <div
+          className={`flex mb-6 border rounded-xl overflow-hidden ${
+            theme === "dark" ? "border-gray-700" : "border-gray-300"
+          }`}
+        >
           <button
             className={`flex-1 py-2 font-semibold transition-all ${
               role === "employer"
@@ -309,8 +284,18 @@ export default function Signup() {
         </div>
 
         {/* Heading */}
-        <h2 className={`text-center text-2xl font-bold mb-2  ${theme === "dark" ?"text-indigo-500" :"text-indigo-700"}`}>Create Account</h2>
-        <p className={`text-center text-sm  mb-6 ${theme === "dark" ?"text-gray-300" :"text-gray-500"}`}>
+        <h2
+          className={`text-center text-2xl font-bold mb-2 ${
+            theme === "dark" ? "text-indigo-500" : "text-indigo-700"
+          }`}
+        >
+          Create Account
+        </h2>
+        <p
+          className={`text-center text-sm mb-6 ${
+            theme === "dark" ? "text-gray-300" : "text-gray-500"
+          }`}
+        >
           Sign up to find work or hire talent
         </p>
 
@@ -327,6 +312,8 @@ export default function Signup() {
             onMouseDown={nameSpeech.start}
             onMouseUp={nameSpeech.stop}
             className="text-indigo-500 mr-3 hover:scale-110 transition-transform"
+            type="button"
+            aria-label="Record name"
           >
             <FaMicrophone />
           </button>
@@ -345,6 +332,8 @@ export default function Signup() {
             onMouseDown={nameSpeech.start}
             onMouseUp={nameSpeech.stop}
             className="text-indigo-500 mr-3 hover:scale-110 transition-transform"
+            type="button"
+            aria-label="Record aadhaar"
           >
             <FaMicrophone />
           </button>
@@ -363,6 +352,7 @@ export default function Signup() {
             onClick={() => setShowMap(true)}
             type="button"
             className="p-2 bg-indigo-100 rounded-r-lg hover:bg-indigo-200 transition"
+            aria-label="Open map"
           >
             <FaMapMarkerAlt className="text-indigo-600" />
           </button>
@@ -395,6 +385,8 @@ export default function Signup() {
             onMouseDown={phoneSpeech.start}
             onMouseUp={phoneSpeech.stop}
             className="text-indigo-500 mr-3 hover:scale-110 transition-transform"
+            type="button"
+            aria-label="Record phone"
           >
             <FaMicrophone />
           </button>
@@ -407,6 +399,7 @@ export default function Signup() {
           <button
             onClick={sendOtp}
             className="w-full bg-indigo-600 text-white font-semibold py-2 rounded-lg mb-3 shadow hover:bg-indigo-700 transition"
+            type="button"
           >
             Get OTP
           </button>
@@ -426,6 +419,7 @@ export default function Signup() {
             <button
               onClick={verifyAndRegister}
               className="w-full bg-indigo-600 text-white font-semibold py-2 rounded-lg shadow hover:bg-indigo-700 transition"
+              type="button"
             >
               Verify & Register
             </button>
@@ -433,7 +427,7 @@ export default function Signup() {
         )}
 
         {/* Footer */}
-        <p className={`text-center text-sm mt-6  ${theme === "dark" ?"text-gray-300" :"text-gray-600"}`}>
+        <p className={`text-center text-sm mt-6 ${theme === "dark" ? "text-gray-300" : "text-gray-600"}`}>
           Already have an account?{" "}
           <Link to="/login" className="text-indigo-600 font-semibold hover:underline">
             Login

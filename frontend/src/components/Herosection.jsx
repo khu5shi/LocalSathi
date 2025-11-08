@@ -1,10 +1,15 @@
 import { useState, useEffect } from "react";
 import hero from "../assets/hero.png";
 import { useTheme } from "../context/ThemeContext";
+import { useNavigate } from "react-router-dom";
 
 const Herosection = () => {
+  const navigate = useNavigate();
    const { theme } = useTheme();
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(false); 
+  const gotologin=()=>{
+    navigate("/login");
+  }
 
   useEffect(() => {
     setIsVisible(true);
@@ -81,12 +86,15 @@ const Herosection = () => {
 
         {/* CTA Buttons */}
         <div className={`flex flex-col sm:flex-row gap-4 justify-center transition-all duration-700 delay-600 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <button className="group relative px-8 py-4 bg-white text-indigo-600 font-bold rounded-full shadow-2xl hover:shadow-white/50 transition-all duration-300 hover:scale-105 overflow-hidden">
+          <button className="group relative px-8 py-4 bg-white text-indigo-600 font-bold rounded-full shadow-2xl hover:shadow-white/50 transition-all duration-300 hover:scale-105 overflow-hidden"
+                   onClick={gotologin}>
             <span className="relative z-10">Find Work Now</span>
             <div className="absolute inset-0 bg-gradient-to-r from-indigo-100 to-purple-100 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           </button>
           
-          <button className="group relative px-8 py-4 bg-transparent border-2 border-white text-white font-bold rounded-full backdrop-blur-sm hover:bg-white hover:text-indigo-600 transition-all duration-300 hover:scale-105 shadow-lg">
+          <button 
+          onClick={gotologin}
+          className="group relative px-8 py-4 bg-transparent border-2 border-white text-white font-bold rounded-full backdrop-blur-sm hover:bg-white hover:text-indigo-600 transition-all duration-300 hover:scale-105 shadow-lg">
             <span className="relative z-10">Post a Job</span>
           </button>
         </div>

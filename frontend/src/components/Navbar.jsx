@@ -51,8 +51,7 @@ const Navbar = () => {
     { id: "home", label: t("home"), path: "/" },
     { id: "about", label: t("about"), path: "/about" },
     { id: "services", label: t("services"), path: "/services" },
-    { id: "contact", label: t("contact"), path: "/contact" },
-    {id: "workerdashboard", label: t("workerdashboard"), path: "/workerdashboard"}
+    { id: "contact", label: t("contact"), path: "/contact" }
   ];
 
   return (

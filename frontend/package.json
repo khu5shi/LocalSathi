@@ -12,6 +12,7 @@
   "dependencies": {
     "@studio-freight/lenis": "^1.0.42",
     "@tailwindcss/vite": "^4.1.12",
+    "axios": "^1.13.2",
     "firebase": "^9.23.0",
     "framer-motion": "^12.23.14",
     "gsap": "^3.13.0",

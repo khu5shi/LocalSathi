@@ -1,7 +1,12 @@
 import { FaCheckCircle, FaMicrophoneAlt, FaMapMarkerAlt, FaShieldAlt, FaBolt } from "react-icons/fa";
 import {useTheme} from "../context/ThemeContext"
+import { useNavigate } from "react-router-dom";
 
 export default function Features() {
+   const navigate = useNavigate();
+   const gotologin=()=>{
+    navigate("/login");
+  }
   const {theme}=useTheme();
   const features = [
     {
@@ -103,7 +108,9 @@ export default function Features() {
 
         {/* Bottom CTA */}
         <div className="text-center mt-10">
-          <button className="px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-full shadow-lg shadow-indigo-300/50 hover:shadow-xl hover:shadow-indigo-400/50 hover:scale-105 transition-all duration-300">
+          <button 
+          onClick={gotologin}
+          className="px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-full shadow-lg shadow-indigo-300/50 hover:shadow-xl hover:shadow-indigo-400/50 hover:scale-105 transition-all duration-300">
             Get Started Today
           </button>
         </div>

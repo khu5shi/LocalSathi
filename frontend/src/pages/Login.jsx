@@ -3,14 +3,13 @@ import { useNavigate, Link } from "react-router-dom";
 import { FaMicrophone } from "react-icons/fa";
 import { sendOtpFirebase } from "../firebase";
 import { useTheme } from "../context/ThemeContext";
+
 export default function Login() {
   const { theme } = useTheme();
   const [phone, setPhone] = useState("");
   const [otp, setOtp] = useState("");
   const [otpRequested, setOtpRequested] = useState(false);
   const confirmationRef = useRef(null);
-  const navigate = useNavigate();
-
   const sendOtp = async () => {
     try {
       const res = await fetch("https://localsathi-backend.onrender.com/api/users/check", {
@@ -34,6 +33,7 @@ export default function Login() {
     }
   };
 
+  
   const verifyAndLogin = async () => {
     try {
       if (!confirmationRef.current) {
@@ -53,7 +53,7 @@ export default function Login() {
       const data = await res.json();
       if (res.ok) {
         alert("Login successful ✅");
-        navigate("/");
+        navigate("/workerdashboard");
       } else {
         alert("Error: " + data.message);
       }
@@ -88,6 +88,7 @@ export default function Login() {
         {!otpRequested && (
           <button
             onClick={sendOtp}
+           
             className="w-full bg-indigo-600 text-white font-semibold py-2 rounded-lg mb-3 shadow hover:bg-indigo-700 transition"
           >
             Get OTP
