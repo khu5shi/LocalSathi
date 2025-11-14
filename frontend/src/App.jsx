@@ -9,6 +9,7 @@ import About from './pages/About';
 import Service from './pages/Service';
 import Contactus from './pages/Contactus';
 import Homepageforworker from './pages/Homepageforworker';
+import Landingpage from './pages/Landingpage';
 
 
 
@@ -20,7 +21,7 @@ function App() {
      <Navbar/>
     
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Landingpage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/about" element={<About/>}/>

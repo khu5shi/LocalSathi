@@ -5,7 +5,7 @@ import { sendOtpFirebase } from "../firebase";
 import { useTheme } from "../context/ThemeContext";
 
 export default function Login() {
-   
+   const navigate = useNavigate();
   const { theme } = useTheme();
   const [phone, setPhone] = useState("");
   const [otp, setOtp] = useState("");
@@ -55,7 +55,7 @@ export default function Login() {
       const data = await res.json();
       if (res.ok) {
         alert("Login successful ✅");
-        navigate("/");
+        navigate("/workerdashboard");
       } else {
         alert("Error: " + data.message);
       }
