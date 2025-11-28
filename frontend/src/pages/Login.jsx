@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { FaMicrophone } from "react-icons/fa";
 import { sendOtpFirebase } from "../firebase";
 import { useTheme } from "../context/ThemeContext";
+import Navbar from "../components/Navbar";
 
 export default function Login() {
    const navigate = useNavigate();
@@ -66,6 +67,7 @@ export default function Login() {
 
   return (
     <div className={`flex max-h-screen pt-20 items-center justify-center bg-gradient-to-br  px-4 ${theme === "dark" ?"from-black via-indigo-950 to-black" :"from-emerald-100 via-white to-emerald-50"}`}>
+      <Navbar/>
       <div className={` backdrop-blur-lg text-gray-800 p-8 my-10 rounded-3xl shadow-2xl border  w-full max-w-md relative ${theme  === "dark" ?"bg-white/10 border-gray-200" :"bg-white/90 border-gray-300"}`}>
         {/* Heading */}
         <h2 className={`text-center text-2xl font-bold mb-2  ${theme === "dark" ?"text-indigo-500" :"text-indigo-800"}`}>Welcome Back</h2>

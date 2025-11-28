@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { FaRocket, FaHeart, FaUsers, FaLightbulb, FaHandshake, FaShieldAlt, FaGlobe, FaStar, FaQuoteLeft } from "react-icons/fa";
 import { useTheme } from "../context/ThemeContext";
+import Navbar from "../components/Navbar";
 
 const About = () => {
    const { theme } = useTheme();
@@ -114,6 +115,7 @@ const About = () => {
                     ${theme === 'dark' 
                     ? " from-black via-indigo-800/30 to-black"
                     :" from-white via-indigo-50/30 to-white "}`}>
+                      <Navbar/>
       {/* Hero Section */}
       <section className="relative  overflow-hidden">
         <div className="absolute inset-0">

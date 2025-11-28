@@ -7,6 +7,7 @@ import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import { sendOtpFirebase } from "../firebase.js";
 import { useTheme } from "../context/ThemeContext";
+import Navbar from "../components/Navbar.jsx";
 
 const markerIcon = new L.Icon({
   iconUrl: "https://unpkg.com/leaflet@1.7/dist/images/marker-icon.png",
@@ -250,6 +251,7 @@ export default function Signup() {
         theme === "dark" ? "from-black via-indigo-950 to-black" : "from-emerald-100 via-white to-emerald-50"
       }`}
     >
+      <Navbar/>
       <div
         className={`backdrop-blur-lg text-gray-800 p-8 my-10 rounded-3xl shadow-2xl border border-gray-200 w-full max-w-md ${
           theme === "dark" ? "bg-white/10 border-gray-200" : "bg-white/90 border-gray-300"

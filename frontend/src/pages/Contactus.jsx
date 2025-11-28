@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useTheme } from "../context/ThemeContext";
+import Navbar from '../components/Navbar';
 
 export default function Contactus() {
   const { theme } = useTheme();
@@ -72,6 +73,7 @@ export default function Contactus() {
 
   return (
     <div className={`min-h-screen bg-gradient-to-br  ${theme === "dark" ?"from-black via-indigo-900 to-black" :"from-white via-indigo-50/30 to-white"}`}>
+      <Navbar/>
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-25">
         {/* Header */}
         <div className="text-center mb-16">

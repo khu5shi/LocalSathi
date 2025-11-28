@@ -1,5 +1,6 @@
 import Features from "../components/Features"
 import Herosection from "../components/Herosection"
+import Navbar from "../components/Navbar"
 import PopularJobs from "../components/Popularjobs"
 import Searchjobs from "../components/Searchjobs"
 import StatsSection from "../components/StatsSection" 
@@ -13,6 +14,7 @@ const Landingpage = () => {
                           ? "bg-black"
                         : "bg-white"
                         }`}>
+                          <Navbar/>
       <Herosection/>
       <Searchjobs/>
       <Features/>

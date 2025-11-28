@@ -5,6 +5,7 @@ import {
   FaStar, FaRocket, FaClock, FaUsers, FaMobile, FaLanguage
 } from "react-icons/fa";
 import { useTheme } from "../context/ThemeContext";
+import Navbar from "../components/Navbar";
 
 const Service = () => {
   const { theme } = useTheme();
@@ -216,6 +217,7 @@ const Service = () => {
                ${theme === "dark"
                ?"from-black via-indigo-800/30 to-black"
               :"from-white via-indigo-50/30 to-white"}`}>
+                <Navbar/>
       {/* Hero Section */}
       <section className="relative pt-26 overflow-hidden">
         <div className="absolute inset-0">

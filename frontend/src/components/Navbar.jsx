@@ -13,7 +13,7 @@ const Navbar = () => {
   const { t, i18n } = useTranslation();
   const [showLang, setShowLang] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState("home");
+  const [activeSection, setActiveSection] = useState("");
 
   // ✅ define hamburgerClasses based on theme
   const hamburgerClasses =
@@ -57,7 +57,7 @@ const Navbar = () => {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500  ${
           scrolled
             ? theme === "dark"
               ? "bg-gray-800 backdrop-blur-lg shadow-lg shadow-black/40 py-2"
@@ -80,7 +80,7 @@ const Navbar = () => {
             </div>
 
             {/* Navigation Links */}
-            <ul className="hidden md:flex items-center gap-1">
+            <ul className="hidden md:flex items-center gap-1 ">
               {navLinks.map((link) => (
                 <li key={link.id}>
                   <button
@@ -88,7 +88,7 @@ const Navbar = () => {
                       navigate(link.path);
                       setActiveSection(link.id);
                     }}
-                    className={`relative px-5 py-2 text-base font-semibold rounded-full transition-all duration-300 group ${
+                    className={`cursor-pointer relative px-5 py-2 text-base font-semibold rounded-full transition-all duration-300 group ${
                       activeSection === link.id
                         ? "text-white"
                         : theme === "dark"
@@ -108,10 +108,10 @@ const Navbar = () => {
             {/* Right Section */}
             <div className="flex items-center gap-3">
               {/* Language Selector */}
-              <div className="relative">
+              <div className="relative ">
                 <button
                   onClick={() => setShowLang(!showLang)}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-full font-medium transition-all duration-300 ${
+                  className={`cursor-pointer flex items-center gap-2 px-4 py-2 rounded-full font-medium transition-all duration-300 ${
                     showLang
                       ? "bg-indigo-500 text-white shadow-lg shadow-indigo-300/50"
                       : theme === "dark"
@@ -183,7 +183,7 @@ const Navbar = () => {
 
               {/* Location Button */}
               <div
-                className={`hidden lg:block px-4 py-2 backdrop-blur-sm rounded-full border transition-all duration-300 ${
+                className={`cursor-pointer hidden lg:block px-4 py-2 backdrop-blur-sm rounded-full border transition-all duration-300 ${
                   theme === "dark"
                     ? "bg-gray-800 border-gray-700 hover:border-indigo-500 hover:shadow-lg hover:shadow-black/30"
                     : "bg-white/80 border-gray-200 hover:border-indigo-300 hover:shadow-lg hover:shadow-indigo-200/50"
@@ -197,7 +197,7 @@ const Navbar = () => {
               {/* Theme Toggle Button */}
               <button
                 onClick={toggleTheme}
-                className={`p-2 rounded-lg transition-all duration-200 ${hamburgerClasses}`}
+                className={`cursor-pointer p-2 rounded-lg transition-all duration-200 ${hamburgerClasses}`}
               >
                 {theme === "dark" ? (
                   <FaSun className="text-lg text-yellow-400" />
@@ -210,7 +210,7 @@ const Navbar = () => {
               <div className="flex gap-2">
                 <button
                   onClick={() => navigate("/login")}
-                  className={`px-6 py-2 font-semibold rounded-full transition-all duration-300 hover:scale-105 shadow-sm ${
+                  className={`px-6 py-2 font-semibold rounded-full transition-all duration-300 hover:scale-105 shadow-sm cursor-pointer ${
                     theme === "dark"
                       ? "bg-gray-800 text-indigo-100 border border-gray-700 hover:bg-gray-700"
                       : "bg-white/80 text-indigo-600 border border-indigo-200 hover:bg-indigo-50 hover:border-indigo-300"
@@ -220,10 +220,14 @@ const Navbar = () => {
                 </button>
                 <button
                   onClick={() => navigate("/signup")}
-                  className="relative px-6 py-2 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold rounded-full shadow-lg shadow-indigo-300/50 hover:shadow-xl hover:shadow-indigo-400/50 transition-all duration-300 hover:scale-105 overflow-hidden group"
+                  className={`px-6 py-2 font-semibold rounded-full transition-all duration-300 hover:scale-105 shadow-sm cursor-pointer ${
+                    theme === "dark"
+                      ? "bg-gray-800 text-indigo-100 border border-gray-700 hover:bg-gray-700"
+                      : "bg-white/80 text-indigo-600 border border-indigo-200 hover:bg-indigo-50 hover:border-indigo-300"
+                  }`}
                 >
-                  <span className="relative z-10">{t("signup")}</span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                 {t("signup")}
+                 
                 </button>
               </div>
             </div>
